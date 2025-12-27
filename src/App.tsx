@@ -177,7 +177,14 @@ function App() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         {/* Header */}
         <div className="mb-8 lg:mb-12">
-          <h1 className="text-3xl font-semibold tracking-tight text-white">
+          <h1 
+            className="text-3xl lg:text-4xl font-light text-white"
+            style={{
+              fontFamily: '"Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, sans-serif',
+              letterSpacing: '0.15em',
+              fontWeight: 300,
+            }}
+          >
             Dictionary Wallpaper
           </h1>
         </div>
@@ -278,6 +285,13 @@ function App() {
                 </div>
               )}
             </div>
+
+            {/* Download Button - Separated below the generate options */}
+            {currentEntry && (
+              <div className="mt-6">
+                <ExportButton />
+              </div>
+            )}
           </div>
 
           {/* Right column: Preview & Controls */}
@@ -302,10 +316,7 @@ function App() {
                 {/* Customization Panel - to the right of phone */}
                 <div className="w-full lg:w-auto lg:min-w-[320px]">
                   <div className="glass-strong rounded-2xl p-6 space-y-6 shadow-2xl">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-white">Customize</h2>
-                      <ExportButton />
-                    </div>
+                    <h2 className="text-lg font-semibold text-white">Customize</h2>
                     <WallpaperControls
                       settings={wallpaperSettings}
                       onSettingsChange={setWallpaperSettings}
