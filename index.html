@@ -1,20 +1,32 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Turn meaningful words into minimal wallpapers." />
-    <title>Lexiloom - Word Wallpaper Generator</title>
+    <meta name="description" content="Create clean, aesthetic wallpapers from meaningful words, definitions, Japanese and Chinese concepts, pinyin and romaji. A minimal, typography-first wallpaper generator for phone and desktop." />
+    <title>Lexiloom — Minimal Word & Definition Wallpaper Generator</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Lexiloom — Minimal Word & Definition Wallpaper Generator" />
+    <meta property="og:description" content="Create clean, aesthetic wallpapers from meaningful words, definitions, Japanese and Chinese concepts, pinyin and romaji. A minimal, typography-first wallpaper generator for phone and desktop." />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lexiloom — Minimal Word & Definition Wallpaper Generator" />
+    <meta name="twitter:description" content="Create clean, aesthetic wallpapers from meaningful words, definitions, Japanese and Chinese concepts, pinyin and romaji. A minimal, typography-first wallpaper generator for phone and desktop." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <script>
-      // Set theme before React loads to prevent flash
+      // Set theme before React loads to prevent flash (default to dark)
       (function() {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark' || savedTheme === 'light') {
           document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
       })();
     </script>
