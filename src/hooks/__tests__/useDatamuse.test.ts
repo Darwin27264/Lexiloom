@@ -3,7 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useDatamuse } from '../useDatamuse';
 
 // Mock fetch
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn() as typeof fetch;
 
 describe('useDatamuse', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('useDatamuse', () => {
       { word: 'joy', score: 95 },
     ];
 
-    (fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponse,
     });
@@ -29,7 +29,7 @@ describe('useDatamuse', () => {
   });
 
   it('should handle API errors gracefully', async () => {
-    (fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as any).mockResolvedValueOnce({
       ok: false,
       statusText: 'Internal Server Error',
     });

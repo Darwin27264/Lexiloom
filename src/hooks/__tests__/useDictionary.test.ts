@@ -3,7 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useDictionary } from '../useDictionary';
 
 // Mock fetch
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn() as typeof fetch;
 
 describe('useDictionary', () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('useDictionary', () => {
       },
     ];
 
-    (fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as any).mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponse,
     });
@@ -47,7 +47,7 @@ describe('useDictionary', () => {
   });
 
   it('should handle API errors', async () => {
-    (fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as any).mockResolvedValueOnce({
       ok: false,
       status: 404,
       statusText: 'Not Found',
