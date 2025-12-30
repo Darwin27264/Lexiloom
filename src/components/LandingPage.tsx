@@ -6,13 +6,23 @@ import { ThemeToggle } from './ThemeToggle';
 import type { WordEntry } from '../types';
 import type { TextAlignment, VerticalAlignment } from '../types/wallpaper';
 
-// Mock examples for the landing page with different styles
+// Color presets matching WallpaperControls
+const COLOR_PRESETS: Array<{ name: string; backgroundColor: string; textColor: string }> = [
+  { name: 'Cream', backgroundColor: '#FAF9F6', textColor: '#1A1A1A' },
+  { name: 'Charcoal', backgroundColor: '#2A2A2A', textColor: '#F5F5F5' },
+  { name: 'AMOLED', backgroundColor: '#000000', textColor: '#FFFFFF' },
+  { name: 'Beige', backgroundColor: '#F4F1EB', textColor: '#2C2C2C' },
+];
+
+// Mock examples for the landing page with different styles and color themes
 interface MockExample {
   entry: WordEntry;
   wordScale: number;
   alignment: TextAlignment;
   verticalAlignment: VerticalAlignment;
   definitionWidth: number;
+  backgroundColor: string;
+  textColor: string;
 }
 
 const MOCK_EXAMPLES: MockExample[] = [
@@ -20,6 +30,7 @@ const MOCK_EXAMPLES: MockExample[] = [
     entry: {
       word: 'serendipity',
       language: 'en',
+      reading: '/ˌserənˈdipitē/',
       partOfSpeech: 'noun',
       definition: 'The occurrence and development of events by chance in a happy or beneficial way.',
     },
@@ -27,6 +38,8 @@ const MOCK_EXAMPLES: MockExample[] = [
     alignment: 'left',
     verticalAlignment: 'top',
     definitionWidth: 0.7,
+    backgroundColor: COLOR_PRESETS[0].backgroundColor, // Cream
+    textColor: COLOR_PRESETS[0].textColor,
   },
   {
     entry: {
@@ -41,6 +54,8 @@ const MOCK_EXAMPLES: MockExample[] = [
     alignment: 'center',
     verticalAlignment: 'middle',
     definitionWidth: 0.8,
+    backgroundColor: COLOR_PRESETS[1].backgroundColor, // Charcoal
+    textColor: COLOR_PRESETS[1].textColor,
   },
   {
     entry: {
@@ -55,11 +70,14 @@ const MOCK_EXAMPLES: MockExample[] = [
     alignment: 'right',
     verticalAlignment: 'bottom',
     definitionWidth: 0.75,
+    backgroundColor: COLOR_PRESETS[2].backgroundColor, // AMOLED
+    textColor: COLOR_PRESETS[2].textColor,
   },
   {
     entry: {
       word: 'momentum',
       language: 'en',
+      reading: '/mōˈmentəm/',
       partOfSpeech: 'noun',
       definition: 'The strength or force that allows something to continue or to grow stronger or faster as time passes.',
     },
@@ -67,6 +85,8 @@ const MOCK_EXAMPLES: MockExample[] = [
     alignment: 'center',
     verticalAlignment: 'top',
     definitionWidth: 0.85,
+    backgroundColor: COLOR_PRESETS[3].backgroundColor, // Beige
+    textColor: COLOR_PRESETS[3].textColor,
   },
 ];
 
@@ -125,6 +145,8 @@ export function LandingPage() {
                   alignment={MOCK_EXAMPLES[1].alignment}
                   verticalAlignment={MOCK_EXAMPLES[1].verticalAlignment}
                   definitionWidth={MOCK_EXAMPLES[1].definitionWidth}
+                  backgroundColor={MOCK_EXAMPLES[1].backgroundColor}
+                  textColor={MOCK_EXAMPLES[1].textColor}
                 />
               </DeviceFrame>
             </div>
@@ -136,31 +158,35 @@ export function LandingPage() {
           <h2 className="text-3xl lg:text-4xl font-light text-primary text-center mb-12 lg:mb-16 animate-fade-in">
             See your words as wallpapers.
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {MOCK_EXAMPLES.map((example, index) => (
-              <div key={index} className="flex flex-col items-center space-y-4 animate-fade-in" style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
-                <DeviceFrame>
-                  <WallpaperPreview 
-                    entry={example.entry}
-                    wordScale={example.wordScale}
-                    alignment={example.alignment}
-                    verticalAlignment={example.verticalAlignment}
-                    definitionWidth={example.definitionWidth}
-                  />
-                </DeviceFrame>
-                <p className="text-sm text-secondary text-center">
-                  {example.entry.language === 'ja' && 'Japanese concept: '}
-                  {example.entry.language === 'zh' && 'Chinese concept: '}
-                  {example.entry.characters || example.entry.word}
-                  {example.entry.reading && ` / ${example.entry.reading}`}
-                </p>
-              </div>
-            ))}
+          <div className="w-full overflow-hidden relative">
+            <div className="flex animate-scroll-left">
+              {/* Render items multiple times - need enough duplicates for seamless loop */}
+              {[...MOCK_EXAMPLES, ...MOCK_EXAMPLES, ...MOCK_EXAMPLES, ...MOCK_EXAMPLES].map((example, index) => (
+                <div 
+                  key={`example-${index}`}
+                  className="flex flex-col items-center space-y-3 flex-shrink-0"
+                >
+                  <div className="scale-[0.45] sm:scale-[0.55] md:scale-[0.6] lg:scale-[0.65] xl:scale-[0.7] origin-top transition-transform duration-200">
+                    <DeviceFrame>
+                      <WallpaperPreview 
+                        entry={example.entry}
+                        wordScale={example.wordScale}
+                        alignment={example.alignment}
+                        verticalAlignment={example.verticalAlignment}
+                        definitionWidth={example.definitionWidth}
+                        backgroundColor={example.backgroundColor}
+                        textColor={example.textColor}
+                      />
+                    </DeviceFrame>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="max-w-7xl mx-auto px-4 py-16 lg:py-24">
+        <section className="max-w-7xl mx-auto px-4 pt-4 pb-16 lg:pt-8 lg:pb-24">
           <h2 className="text-3xl lg:text-4xl font-light text-primary text-center mb-12 lg:mb-16 animate-fade-in">
             Why Lexiloom
           </h2>
@@ -251,6 +277,8 @@ export function LandingPage() {
                     alignment={MOCK_EXAMPLES[0].alignment}
                     verticalAlignment={MOCK_EXAMPLES[0].verticalAlignment}
                     definitionWidth={MOCK_EXAMPLES[0].definitionWidth}
+                    backgroundColor={MOCK_EXAMPLES[0].backgroundColor}
+                    textColor={MOCK_EXAMPLES[0].textColor}
                   />
                 </DeviceFrame>
               </div>

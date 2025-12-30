@@ -113,6 +113,15 @@
   .font-display {
     font-family: 'DM Serif Display', serif;
   }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
 }
 
 /* Animations */
@@ -174,4 +183,39 @@
 
 .animate-page-enter {
   animation: pageEnter 0.4s ease-out forwards;
+}
+
+/* Infinite scroll animation - animate by exactly 25% (one set of 4 items out of 16 total) */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+.animate-scroll-left {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  animation: scrollLeft 60s linear infinite;
+  will-change: transform;
+  width: fit-content;
+}
+
+@media (min-width: 640px) {
+  .animate-scroll-left {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .animate-scroll-left {
+    gap: 2rem;
+  }
+}
+
+.animate-scroll-left:hover {
+  animation-play-state: paused;
 }
