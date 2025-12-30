@@ -14,15 +14,15 @@ const MODES: Array<{ id: Mode; label: string }> = [
 
 export function ModeTabs({ currentMode, onModeChange }: ModeTabsProps) {
   return (
-    <div className="flex gap-2 border-b border-white/10 pb-1">
+    <div className="inline-flex rounded-full px-1 py-1 bg-surface-muted animate-fade-in">
       {MODES.map((mode) => (
         <button
           key={mode.id}
           onClick={() => onModeChange(mode.id)}
-          className={`px-4 py-2 text-sm font-medium tracking-wide transition-all rounded-t-lg ${
+          className={`relative px-3 py-1 text-sm font-medium transition-colors duration-150 rounded-full ${
             currentMode === mode.id
-              ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/10'
-              : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5 border-b-2 border-transparent'
+              ? 'bg-surface text-primary shadow-sm'
+              : 'text-secondary hover:text-primary'
           }`}
         >
           {mode.label}

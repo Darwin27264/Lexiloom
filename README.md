@@ -1,6 +1,8 @@
-# Dictionary Wallpaper Generator
+# Lexiloom
 
-A minimal browser-only React app that generates word/definition wallpapers.
+Turn meaningful words into minimal wallpapers.
+
+A minimal browser-only React app that generates word/definition wallpapers with a clean, modern design system supporting both light and dark themes.
 
 ## Features
 
@@ -11,7 +13,9 @@ A minimal browser-only React app that generates word/definition wallpapers.
   4. Random word across categories
 
 - **Live preview** and downloadable PNG wallpapers
-- **Minimal, modern design** with dark theme
+- **Minimal, modern design** with light/dark theme support
+- **Pill-style UI** with soft, aesthetic color palette
+- **Customizable wallpapers** with alignment, sizing, and background controls
 
 ## Tech Stack
 
@@ -21,6 +25,7 @@ A minimal browser-only React app that generates word/definition wallpapers.
 - html-to-image (for PNG export)
 - Free Dictionary API (Wiktionary-based)
 - Datamuse API (for word search)
+- Google Fonts (Plus Jakarta Sans, DM Serif Display)
 
 ## Getting Started
 
@@ -44,7 +49,13 @@ npm run build
 npm test
 ```
 
+## Design System
+
+- **Typography:** Plus Jakarta Sans for UI, DM Serif Display for wallpaper words
+- **Themes:** Light mode (default) and dark mode with smooth transitions
+- **Colors:** Soft, minimal palette with semantic color tokens
+- **Components:** Pill-shaped buttons and tabs for a modern, clean aesthetic
+
 ## Attribution
 
 Definitions from Wiktionary via Free Dictionary API. Word search powered by Datamuse.
-

@@ -6,6 +6,7 @@ export interface WallpaperLayoutSettings {
   alignment: TextAlignment;
   verticalAlignment: VerticalAlignment;
   definitionWidth: number; // 0.3 to 1.0 (30% to 100% of container width)
+  textColor: string;
   backgroundColor: string;
   backgroundImage: string | null;
 }
@@ -15,7 +16,8 @@ export const DEFAULT_LAYOUT_SETTINGS: WallpaperLayoutSettings = {
   alignment: 'center',
   verticalAlignment: 'middle',
   definitionWidth: 0.75, // 75% of container width
-  backgroundColor: '#18181b', // zinc-900
+  textColor: '#262626', // Light theme default (text-primary)
+  backgroundColor: '#F5F3EF', // Light theme default (bg-soft)
   backgroundImage: null,
 };
 

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import type { WordEntry } from '../types';
 import { buildSubtitle } from '../utils/formatSubtitle';
 
@@ -7,6 +8,7 @@ interface WallpaperPreviewProps {
   alignment?: 'left' | 'center' | 'right';
   verticalAlignment?: 'top' | 'middle' | 'bottom';
   definitionWidth?: number;
+  textColor?: string;
   backgroundColor?: string;
   backgroundImage?: string;
 }
@@ -17,9 +19,31 @@ export function WallpaperPreview({
   alignment = 'center',
   verticalAlignment = 'middle',
   definitionWidth = 0.75,
+  textColor,
   backgroundColor,
   backgroundImage,
 }: WallpaperPreviewProps) {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+    return false;
+  });
+
+  // Watch for theme changes
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   // Build language-aware subtitle
   const subtitle = buildSubtitle(entry);
   
@@ -53,8 +77,18 @@ export function WallpaperPreview({
   const baseFontSize = 80; // 8xl equivalent
   const scaledFontSize = baseFontSize * wordScale;
 
+  // Get current theme to determine default background
+  const lightDefault = '#F5F3EF';
+  const darkDefault = '#111315';
+  const currentDefault = isDark ? darkDefault : lightDefault;
+
+  // Check if user has set a custom background (different from current theme default)
+  // Normalize color comparison by converting to lowercase and removing spaces
+  const normalizeColor = (color: string) => color.toLowerCase().trim();
+  const hasCustomColor = backgroundColor && normalizeColor(backgroundColor) !== normalizeColor(currentDefault);
+  const hasCustomBackground = backgroundImage || hasCustomColor;
+
   // Background style
-  const hasCustomBackground = backgroundImage || (backgroundColor && backgroundColor !== '#18181b');
   const backgroundStyle: React.CSSProperties = backgroundImage
     ? {
         width: '100%',
@@ -67,7 +101,7 @@ export function WallpaperPreview({
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }
-    : backgroundColor && backgroundColor !== '#18181b'
+    : hasCustomColor
     ? {
         width: '100%',
         height: '100%',
@@ -85,24 +119,25 @@ export function WallpaperPreview({
     >
       {/* Background layer */}
       {!hasCustomBackground && (
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/90 to-zinc-800/90" />
+        <div className="absolute inset-0 bg-soft transition-colors duration-150" />
       )}
       {hasCustomBackground && <div style={backgroundStyle} />}
 
       {/* Content layer */}
       <div
-        className={`absolute inset-0 flex flex-col px-8 py-16 text-zinc-100 ${verticalAlignmentClasses[verticalAlignment]} ${horizontalAlignmentClasses[alignment]}`}
+        className={`absolute inset-0 flex flex-col px-8 py-16 transition-colors duration-150 ${verticalAlignmentClasses[verticalAlignment]} ${horizontalAlignmentClasses[alignment]}`}
+        style={textColor ? { color: textColor } : {}}
       >
         <div className={`max-w-full ${textAlignmentClasses[alignment]}`}>
           {/* Large word - focal point */}
           <h1
-            className="font-serif mb-8 leading-none break-words"
+            className="font-display mb-8 leading-none break-words"
             style={{
-              fontFamily: '"Georgia", "Times New Roman", serif',
               fontWeight: 400,
               letterSpacing: '-0.02em',
               fontSize: `${scaledFontSize}px`,
               lineHeight: 1,
+              color: textColor || 'inherit',
             }}
           >
             {primary}
@@ -110,14 +145,26 @@ export function WallpaperPreview({
 
           {/* Subtitle: language-aware pronunciation and label */}
           {subtitle && (
-            <p className={`mt-2 text-xs uppercase tracking-[0.2em] text-gray-400 mb-8 ${textAlignmentClasses[alignment]}`}>
+            <p 
+              className={`mt-2 text-xs uppercase tracking-[0.2em] mb-8 ${textAlignmentClasses[alignment]}`}
+              style={{
+                color: textColor || 'inherit',
+                opacity: textColor ? 0.8 : 1, // 80% opacity for subtitle
+              }}
+            >
               {subtitle}
             </p>
           )}
 
           {/* Part of speech */}
           {entry.partOfSpeech && (
-            <p className={`mt-6 text-xs italic text-gray-400 ${textAlignmentClasses[alignment]}`}>
+            <p 
+              className={`mt-6 text-xs italic ${textAlignmentClasses[alignment]}`}
+              style={{
+                color: textColor || 'inherit',
+                opacity: textColor ? 0.8 : 1, // 80% opacity for part of speech
+              }}
+            >
               {entry.partOfSpeech}
             </p>
           )}
@@ -133,11 +180,11 @@ export function WallpaperPreview({
               }}
             >
               <p
-                className="text-sm leading-relaxed break-words text-zinc-200"
+                className="text-sm leading-relaxed break-words"
                 style={{
-                  fontFamily: '"Georgia", "Times New Roman", serif',
                   wordBreak: 'break-word',
                   overflowWrap: 'break-word',
+                  color: textColor || 'inherit',
                 }}
               >
                 {entry.definition}

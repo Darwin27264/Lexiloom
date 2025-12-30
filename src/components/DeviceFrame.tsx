@@ -6,9 +6,9 @@ interface DeviceFrameProps {
 
 export function DeviceFrame({ children }: DeviceFrameProps) {
   return (
-    <div className="glass-strong rounded-3xl p-3 shadow-2xl">
+    <div className="bg-surface rounded-[32px] p-3 shadow-lg border border-subtle animate-fade-in-scale">
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden rounded-[24px]"
         style={{
           width: '400px',
           aspectRatio: '9 / 19.5',
