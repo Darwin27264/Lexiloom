@@ -22,11 +22,21 @@ export async function resolveWordEntry(
   }
 
   try {
+    // First, always try local dictionaries (Japanese and Chinese) regardless of detected language
+    // This handles cases where romaji Japanese words are detected as English
+    const jpEntry = findJapaneseEntry(trimmed);
+    if (jpEntry && jpEntry.definition) {
+      return jpEntry;
+    }
+
+    const chineseEntry = findChineseEntry(trimmed);
+    if (chineseEntry && chineseEntry.definition) {
+      return chineseEntry;
+    }
+
+    // Then proceed with language-specific resolution
     if (language === 'ja') {
-      const jpEntry = findJapaneseEntry(trimmed);
-      if (jpEntry) return jpEntry;
-      
-      // Fallback for Japanese: handle kana or kanji input
+      // If we already tried Japanese above and it didn't work, handle fallbacks
       // Check if input contains kana
       const hasKana = /[\u3040-\u309F\u30A0-\u30FF]/.test(trimmed);
       // Check if input contains kanji
@@ -51,13 +61,13 @@ export async function resolveWordEntry(
           definition: '',
         };
       }
-      // If neither kana nor kanji, fall through to generic fallback
+      // If neither kana nor kanji, fall through to English API
     }
 
     if (language === 'zh') {
-      // Chinese is handled entirely locally (no async needed),
-      // but we keep the function async for a unified interface.
-      return findChineseEntry(trimmed);
+      // Chinese was already tried above, so if we get here it means no definition found
+      // Return the entry anyway (it might have pinyin but no definition)
+      return chineseEntry;
     }
 
     if (language === 'en') {

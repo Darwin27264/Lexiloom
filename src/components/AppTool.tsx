@@ -15,6 +15,9 @@ import type { WordEntry, LanguageCode } from '../types';
 import {
   CATEGORY_LABELS,
   getRandomWordFromAllLanguages,
+  markRandomWordAsUsed,
+  getRandomWordFromCategory,
+  markCategoryWordAsUsed,
   getWordsFromCategoryWithLanguages,
   type CategoryId,
 } from '../data/categories';
@@ -117,30 +120,39 @@ export function AppTool() {
     setLoading(true);
     setError(null);
     
-    // Get words from all languages for this category
-    const words = getWordsFromCategoryWithLanguages(selectedCategory);
+    // Try up to 10 times to find a valid word with a definition
+    const maxAttempts = 10;
+    const attemptedWords = new Set<string>();
     
-    if (words.length === 0) {
-      setError('No words available for this category');
-      setLoading(false);
-      return;
-    }
-
-    // Shuffle words and try until we find one with a valid definition
-    const shuffledWords = [...words].sort(() => Math.random() - 0.5);
-    
-    for (const word of shuffledWords) {
-      // Detect language for each word
-      const detectedLanguage = detectLanguage(word);
-      const entry = await resolveWordEntry(word, detectedLanguage);
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      // Use the improved random word selection that avoids repetition
+      const randomWord = getRandomWordFromCategory(selectedCategory);
+      
+      if (!randomWord) {
+        setError('No words available for this category');
+        setLoading(false);
+        return;
+      }
+      
+      // Skip if we've already tried this word in this session
+      if (attemptedWords.has(randomWord)) {
+        continue;
+      }
+      attemptedWords.add(randomWord);
+      
+      // Detect language and resolve word
+      const detectedLanguage = detectLanguage(randomWord);
+      const entry = await resolveWordEntry(randomWord, detectedLanguage);
       if (entry.word && entry.definition) {
+        // Only mark as used if it successfully resolved with a definition
+        markCategoryWordAsUsed(selectedCategory, randomWord);
         setCurrentEntry(entry);
         setLoading(false);
         return;
       }
     }
     
-    setError('Words found but none have valid definitions. Please try another category.');
+    setError('Unable to find a word with a valid definition. Please try again.');
     setLoading(false);
   };
 
@@ -164,6 +176,8 @@ export function AppTool() {
       const detectedLanguage = detectLanguage(randomWord);
       const entry = await resolveWordEntry(randomWord, detectedLanguage);
       if (entry.word && entry.definition) {
+        // Only mark as used if it successfully resolved with a definition
+        markRandomWordAsUsed(randomWord);
         setCurrentEntry(entry);
         setLoading(false);
         return;
