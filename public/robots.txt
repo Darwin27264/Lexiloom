@@ -1,0 +1,11 @@
+# robots.txt for Lexiloom
+User-agent: *
+Allow: /
+Allow: /app
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://lexiloom.com/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1

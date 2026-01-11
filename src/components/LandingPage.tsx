@@ -3,6 +3,7 @@ import { DeviceFrame } from './DeviceFrame';
 import { WallpaperPreview } from './WallpaperPreview';
 import { PrimaryButton } from './PrimaryButton';
 import { ThemeToggle } from './ThemeToggle';
+import { SEO } from './SEO';
 import type { WordEntry } from '../types';
 import type { TextAlignment, VerticalAlignment } from '../types/wallpaper';
 
@@ -102,6 +103,11 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-soft animate-page-enter">
+      <SEO
+        title="Lexiloom — Minimal Word & Definition Wallpaper Generator | Free Online Tool"
+        description="Create clean, aesthetic wallpapers from meaningful words, definitions, Japanese and Chinese concepts with pinyin and romaji. Free browser-based wallpaper generator for phone and desktop. Turn words into beautiful, minimal wallpapers instantly."
+        canonical="https://lexiloom.com/"
+      />
       {/* Header */}
       <header className="max-w-7xl mx-auto px-4 py-6 lg:py-8">
         <div className="flex items-center justify-between animate-fade-in">
@@ -294,14 +300,14 @@ export function LandingPage() {
           <p className="text-xs text-secondary">
             Definitions from Wiktionary via Free Dictionary API. Word search powered by Datamuse.
           </p>
-          <div className="flex justify-center gap-6 pt-4">
-            <a href="#" className="text-xs text-secondary hover:text-primary transition-colors">
-              Privacy
+          <nav aria-label="Footer navigation" className="flex justify-center gap-6 pt-4">
+            <a href="/app" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Open wallpaper generator tool">
+              Create Wallpaper
             </a>
-            <a href="#" className="text-xs text-secondary hover:text-primary transition-colors">
+            <a href="mailto:contact@lexiloom.com" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Contact Lexiloom">
               Contact
             </a>
-          </div>
+          </nav>
         </div>
       </footer>
     </div>

@@ -1,0 +1,21 @@
+{
+  "name": "Lexiloom - Word & Definition Wallpaper Generator",
+  "short_name": "Lexiloom",
+  "description": "Create clean, aesthetic wallpapers from meaningful words, definitions, Japanese and Chinese concepts with pinyin and romaji. Free browser-based wallpaper generator.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1A1A",
+  "theme_color": "#1A1A1A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["design", "utilities", "education"],
+  "lang": "en",
+  "dir": "ltr"
+}

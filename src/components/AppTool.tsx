@@ -10,6 +10,7 @@ import { DeviceFrame } from './DeviceFrame';
 import { PrimaryButton } from './PrimaryButton';
 import { WallpaperControls } from './WallpaperControls';
 import { ThemeToggle } from './ThemeToggle';
+import { SEO } from './SEO';
 import type { WordEntry, LanguageCode } from '../types';
 import {
   CATEGORY_LABELS,
@@ -179,6 +180,11 @@ export function AppTool() {
 
   return (
     <div className="min-h-screen bg-soft animate-page-enter">
+      <SEO
+        title="Create Wallpaper — Lexiloom | Word & Definition Wallpaper Generator"
+        description="Create your custom word and definition wallpaper. Enter a word, describe a meaning, pick a category, or get a random word. Customize typography, layout, and colors. Export as PNG for phone or desktop."
+        canonical="https://lexiloom.com/app"
+      />
       <div className="max-w-7xl mx-auto px-4 py-6 lg:py-8">
         {/* Header */}
         <div className="mb-8 lg:mb-12 flex items-start justify-between animate-fade-in">
