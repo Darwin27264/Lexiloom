@@ -11,9 +11,8 @@ export function ThemeToggle() {
   });
 
   useEffect(() => {
-    // Set theme attribute on mount
     document.documentElement.setAttribute('data-theme', theme);
-  }, []);
+  }, [theme]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';

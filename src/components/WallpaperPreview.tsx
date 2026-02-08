@@ -48,7 +48,7 @@ export function WallpaperPreview({
   const subtitle = buildSubtitle(entry);
   
   // Main heading: prefer characters for Japanese/Chinese, otherwise use word
-  const primary = entry.characters || entry.word;
+  const primary = entry.characters || entry.word || '';
 
   // Calculate vertical alignment classes
   // In flex-col: justify-* controls vertical (main axis)

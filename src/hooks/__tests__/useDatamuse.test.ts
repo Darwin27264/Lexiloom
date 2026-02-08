@@ -16,7 +16,7 @@ describe('useDatamuse', () => {
       { word: 'joy', score: 95 },
     ];
 
-    (globalThis.fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponse,
     });
@@ -29,7 +29,7 @@ describe('useDatamuse', () => {
   });
 
   it('should handle API errors gracefully', async () => {
-    (globalThis.fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: false,
       statusText: 'Internal Server Error',
     });

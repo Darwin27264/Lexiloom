@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDatamuse } from '../hooks/useDatamuse';
 import { resolveWordEntry } from '../api/resolveWord';
@@ -18,7 +18,6 @@ import {
   markRandomWordAsUsed,
   getRandomWordFromCategory,
   markCategoryWordAsUsed,
-  getWordsFromCategoryWithLanguages,
   type CategoryId,
 } from '../data/categories';
 import {
@@ -65,44 +64,32 @@ export function AppTool() {
   const isLoading = loading || (mode === 'definition' && datamuseLoading);
   const currentError = error || (mode === 'definition' ? datamuseError : null);
 
-  const handleWordSubmit = async () => {
+  const handleWordSubmit = useCallback(async () => {
     if (!wordInput.trim()) return;
-    
     setLoading(true);
     setError(null);
-    
     const effectiveLanguage: LanguageCode =
       languageOverride === 'auto' ? detectLanguage(wordInput) : languageOverride;
-    
     const entry = await resolveWordEntry(wordInput.trim(), effectiveLanguage);
-    
     if (entry.word && entry.definition) {
       setCurrentEntry(entry);
     } else if (entry.word) {
-      // Word found but no definition - still show it, user can add definition manually
       setCurrentEntry(entry);
     } else {
       setError(`Word "${wordInput.trim()}" not found`);
     }
-    
     setLoading(false);
-  };
+  }, [wordInput, languageOverride]);
 
-  const handleDefinitionSubmit = async () => {
+  const handleDefinitionSubmit = useCallback(async () => {
     if (!definitionInput.trim()) return;
-
     setError(null);
     const words = await getWordsByMeaning(definitionInput.trim());
-    
     if (words.length === 0) {
       setError('No words found for this meaning');
       return;
     }
-
     setLoading(true);
-    
-    // Try words until we find one with a valid definition
-    // Meaning mode assumes English (Datamuse is English-focused)
     for (const word of words) {
       const entry = await resolveWordEntry(word, 'en');
       if (entry.word && entry.definition) {
@@ -111,12 +98,11 @@ export function AppTool() {
         return;
       }
     }
-    
     setError('Found words but none have valid definitions');
     setLoading(false);
-  };
+  }, [definitionInput, getWordsByMeaning]);
 
-  const handleCategorySubmit = async () => {
+  const handleCategorySubmit = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -154,9 +140,9 @@ export function AppTool() {
     
     setError('Unable to find a word with a valid definition. Please try again.');
     setLoading(false);
-  };
+  }, [selectedCategory]);
 
-  const handleRandomSubmit = async () => {
+  const handleRandomSubmit = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -188,9 +174,8 @@ export function AppTool() {
         setError('Unable to find a word with a valid definition. Please try again.');
       }
     }
-    
     setLoading(false);
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-soft animate-page-enter">

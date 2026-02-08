@@ -50,9 +50,15 @@ const MIN_RECENTLY_USED = 5; // Minimum number of recent words to avoid (always 
 const MAX_RECENTLY_USED = 10; // Maximum number of recent words to track
 
 // State for managing shuffled word pools per category to avoid repetition
-const categoryPools: Record<CategoryId, string[]> = {};
-const categoryIndices: Record<CategoryId, number> = {};
-const categoryRecentlyUsed: Record<CategoryId, string[]> = {};
+const categoryPools: Record<CategoryId, string[]> = {
+  aesthetics: [], emotions: [], nature: [], philosophy: [], productivity: [],
+};
+const categoryIndices: Record<CategoryId, number> = {
+  aesthetics: 0, emotions: 0, nature: 0, philosophy: 0, productivity: 0,
+};
+const categoryRecentlyUsed: Record<CategoryId, string[]> = {
+  aesthetics: [], emotions: [], nature: [], philosophy: [], productivity: [],
+};
 const CATEGORY_MIN_RECENTLY_USED = 3; // Minimum number of recent words to avoid per category
 const CATEGORY_MAX_RECENTLY_USED = 5; // Maximum number of recent words to track per category
 
@@ -112,7 +118,7 @@ export function getRandomWordFromCategory(categoryId: CategoryId): string | null
     word => !wordsToAvoid.includes(word)
   );
   
-  let selectedWord: string;
+  let selectedWord: string = pool[0];
   
   // If we have available words that aren't in the avoid list, pick from those
   if (availableWords.length > 0) {
@@ -217,7 +223,7 @@ export function getRandomWordFromAllLanguages(): string | null {
     word => !wordsToAvoid.includes(word)
   );
   
-  let selectedWord: string;
+  let selectedWord: string = shuffledPool[0];
   
   // If we have available words that aren't in the avoid list, pick from those
   if (availableWords.length > 0) {

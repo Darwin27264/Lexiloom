@@ -6,9 +6,8 @@ export function ExportButton() {
 
   const handleExport = async () => {
     const node = document.getElementById('wallpaper-node');
-    
+
     if (!node) {
-      console.error('Wallpaper preview node not found');
       return;
     }
 

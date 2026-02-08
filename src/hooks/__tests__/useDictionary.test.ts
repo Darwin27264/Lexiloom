@@ -28,7 +28,7 @@ describe('useDictionary', () => {
       },
     ];
 
-    (globalThis.fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponse,
     });
@@ -47,7 +47,7 @@ describe('useDictionary', () => {
   });
 
   it('should handle API errors', async () => {
-    (globalThis.fetch as any).mockResolvedValueOnce({
+    (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       ok: false,
       status: 404,
       statusText: 'Not Found',

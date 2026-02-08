@@ -31,14 +31,14 @@ export async function fetchWordEntry(word: string): Promise<WordEntry | null> {
 
     const data: DictionaryResponse[] = await response.json();
     
-    if (!data || data.length === 0) {
+    if (!data || data.length === 0 || !data[0]?.word) {
       return null;
     }
 
     const entry = data[0];
     
-    // Get the first definition from the first meaning
-    const firstMeaning = entry.meanings[0];
+    // Get the first definition from the first meaning (guard empty meanings)
+    const firstMeaning = entry.meanings?.[0];
     const definition = firstMeaning?.definitions[0]?.definition || 'No definition available';
     const partOfSpeech = firstMeaning?.partOfSpeech;
     
