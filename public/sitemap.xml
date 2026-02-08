@@ -7,7 +7,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://lexiloom.com/</loc>
-    <lastmod>2024-12-19</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,9 +15,93 @@
   <!-- App Tool -->
   <url>
     <loc>https://lexiloom.com/app</loc>
-    <lastmod>2024-12-19</lastmod>
+    <lastmod>2025-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  
+  <!-- Blog -->
+  <url>
+    <loc>https://lexiloom.com/blog</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog posts -->
+  <url>
+    <loc>https://lexiloom.com/blog/why-minimalist-wallpapers-improve-focus</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/psychology-of-typography-mood-productivity</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/best-words-definitions-aesthetic-lock-screen</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/wabi-sabi-japanese-aesthetic-concepts-wallpaper</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/calm-minimalist-phone-home-screen-guide</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/amoled-wallpaper-save-battery-minimal-look</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/soft-minimal-aesthetic-2025-beige-neutral-lock-screen</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/learn-vocabulary-every-unlock-lock-screen-language-hacks</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/digital-detox-2025-minimal-phone-reduce-screen-time</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/blog/aesthetic-words-trending-2025-great-wallpapers</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Legal -->
+  <url>
+    <loc>https://lexiloom.com/privacy</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://lexiloom.com/terms</loc>
+    <lastmod>2025-02-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   
 </urlset>

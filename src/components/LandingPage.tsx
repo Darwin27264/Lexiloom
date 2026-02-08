@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { DeviceFrame } from './DeviceFrame';
 import { WallpaperPreview } from './WallpaperPreview';
 import { PrimaryButton } from './PrimaryButton';
@@ -112,7 +112,16 @@ export function LandingPage() {
       <header className="max-w-7xl mx-auto px-4 py-6 lg:py-8">
         <div className="flex items-center justify-between animate-fade-in">
           <h1 className="text-2xl lg:text-3xl font-light text-primary">Lexiloom</h1>
-          <ThemeToggle />
+          <div className="flex items-center gap-8">
+            <Link
+              to="/blog"
+              className="text-base font-medium text-primary hover:opacity-80 transition-opacity"
+              aria-label="Blog"
+            >
+              Blog
+            </Link>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -300,13 +309,19 @@ export function LandingPage() {
           <p className="text-xs text-secondary">
             Definitions from Wiktionary via Free Dictionary API. Word search powered by Datamuse.
           </p>
-          <nav aria-label="Footer navigation" className="flex justify-center gap-6 pt-4">
-            <a href="/app" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Open wallpaper generator tool">
+          <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-6 pt-4">
+            <Link to="/app" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Open wallpaper generator tool">
               Create Wallpaper
-            </a>
-            <a href="mailto:contact@lexiloom.com" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Contact Lexiloom">
-              Contact
-            </a>
+            </Link>
+            <Link to="/blog" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Lexiloom blog">
+              Blog
+            </Link>
+            <Link to="/privacy" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Privacy Policy">
+              Privacy
+            </Link>
+            <Link to="/terms" className="text-xs text-secondary hover:text-primary transition-colors" aria-label="Terms of Use">
+              Terms
+            </Link>
           </nav>
         </div>
       </footer>
